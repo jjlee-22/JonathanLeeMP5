@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MeshCylinderSelect : MonoBehaviour
 {
-    public static int selection;
+    int selection;
     public GameObject MyMesh;
     public GameObject MyCylinder;
     // Start is called before the first frame update
@@ -29,4 +29,5 @@ public class MeshCylinderSelect : MonoBehaviour
             MyCylinder.SetActive(true);
         }
     }
+    
 }
