@@ -7,9 +7,9 @@ using System.Collections;
 
 public class CameraControll : MonoBehaviour
 {
-    /*public Slider X_Slider;
+    public Slider X_Slider;
     public Slider Y_Slider;
-    public Slider Z_Slider;*/
+    public Slider Z_Slider;
     public GameObject lookAtPoint;
     public float zoom_sensitivity;
     public float move_sensitivity;
@@ -17,7 +17,7 @@ public class CameraControll : MonoBehaviour
     Vector3 original_camera_position;
     Vector3 offset;
     Vector3 current_mouse;
-    bool is_alt_down = false;
+    public static bool is_alt_down = false;
     bool is_rightpress = false;
     bool is_leftpress = false;
 
@@ -38,14 +38,14 @@ public class CameraControll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*var x = X_Slider.GetComponent<Slider>();
+        var x = X_Slider.GetComponent<Slider>();
         var y = Y_Slider.GetComponent<Slider>();
         var z = Z_Slider.GetComponent<Slider>();
         Vector3 translate_value = new Vector3(x.value, y.value, z.value);
         // Continuously apply slider values on the lookatpoint
         lookAtPoint.transform.position = original_lookAt + translate_value;
-        update_lookAt(lookAtPoint.transform.position);*/
-        lookAtPoint.transform.position = original_lookAt;
+        update_lookAt(lookAtPoint.transform.position);
+        //lookAtPoint.transform.position = original_lookAt;
         // Handle key press
         handle_alt();
         handle_rightClick();

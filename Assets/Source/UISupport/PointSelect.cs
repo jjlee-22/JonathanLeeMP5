@@ -41,7 +41,7 @@ public class PointSelect : MonoBehaviour
         if(mouse_is_pressed==true)
         {
             // No selected axis cylinder but mouse is pressed, so treat it as a mouse click only
-            if (selected_cylinder == null)
+            if (selected_cylinder == null && CameraControll.is_alt_down==false)
             {
                 ClickBehavior();
                 mouse_is_pressed = false;
