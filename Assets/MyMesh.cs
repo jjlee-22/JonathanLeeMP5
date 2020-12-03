@@ -110,8 +110,15 @@ public partial class MyMesh : MonoBehaviour {
         Mesh theMesh = GetComponent<MeshFilter>().mesh;   // get the mesh component
         theMesh.Clear();    // delete whatever is there!!
         Vector3[] v = new Vector3[N*M];   // 2x2 mesh needs 3x3 vertices
-        tri_amount = (N - 1) * 2 * (M - 1);
-        t = new int[tri_amount * 3];         // Number of triangles: 2x2 mesh and 2x triangles on each mesh-unit
+        if (Rotation.GetComponent<Slider>().value == 360&&this.name=="MyCylinder")
+        {
+            tri_amount = (N - 1) * 2 * (M - 1) + (M - 1) * 2;
+        }
+        else
+        {
+            tri_amount = (N - 1) * 2 * (M - 1); 
+        }
+        t = new int[tri_amount * 3]; // Number of triangles: 2x2 mesh and 2x triangles on each mesh-unit
         Vector3[] n = new Vector3[N*M];   // MUST be the same as number of vertices
 
         // Initialize normals
@@ -182,6 +189,22 @@ public partial class MyMesh : MonoBehaviour {
             index+=6;
             cur_index++;
             counter++;
+        }
+        if (Rotation.GetComponent<Slider>().value == 360 && this.name == "MyCylinder")
+        {
+            counter = 0;
+            while (counter < M-1)
+            {
+                t[index] = counter*N;
+                t[index + 1] = (counter+1) * N;
+                t[index + 2] = (counter + 2) * N - 1;
+
+                t[index + 3] = counter*N;
+                t[index + 4] = (counter+1) * N - 1;
+                t[index + 5] = (counter + 2) * N - 1;
+                counter++;
+                index += 6;
+            }
         }
         theMesh.vertices = v; //  new Vector3[3];
         theMesh.triangles = t; //  new int[3];
