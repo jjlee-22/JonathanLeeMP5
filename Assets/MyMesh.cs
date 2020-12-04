@@ -21,8 +21,8 @@ public partial class MyMesh : MonoBehaviour
     int pre_selection;
     int tri_amount;
     int[] t;
-    private Transform mUVTransform;
-    public XFormControl mTexControl;
+    private Transform UVtransform;
+    public XFormControl formcontrol;
     // Use this for initialization
     void Start()
     {
@@ -34,11 +34,11 @@ public partial class MyMesh : MonoBehaviour
 
         initMesh(pre_N, pre_M);
 
-        mUVTransform = new GameObject("Texture").transform;
+        UVtransform = new GameObject("Texture").transform;
 
         if (gameObject.name == "MyMesh")
         {
-            mTexControl.SetSelectedObject(mUVTransform);
+            formcontrol.SetSelectedObject(UVtransform);
         }
     }
 
@@ -208,15 +208,15 @@ public partial class MyMesh : MonoBehaviour
     void ChangeTextureTransform(Vector2[] uv)
     {
         // Calculate the texture transform using the given helpers
-        Matrix3x3 translation = Matrix3x3Helpers.CreateTranslation(new Vector2(mUVTransform.localPosition.x, mUVTransform.localPosition.y));
-        Matrix3x3 scale = Matrix3x3Helpers.CreateScale(new Vector2(mUVTransform.localScale.x, mUVTransform.localScale.y));
-        Matrix3x3 rotation = Matrix3x3Helpers.CreateRotation(mUVTransform.localRotation.eulerAngles.z);
+        Matrix3x3 translation = Matrix3x3Helpers.CreateTranslation(new Vector2(UVtransform.localPosition.x, UVtransform.localPosition.y));
+        Matrix3x3 scale = Matrix3x3Helpers.CreateScale(new Vector2(UVtransform.localScale.x, UVtransform.localScale.y));
+        Matrix3x3 rotation = Matrix3x3Helpers.CreateRotation(UVtransform.localRotation.eulerAngles.z);
         Matrix3x3 m = translation * rotation * scale;
 
         ComputeUV(uv);
 
-        for (int index = 0; index < uv.Length; ++index)
-            uv[index] = Matrix3x3.MultiplyVector2(m, uv[index]);
+        for (int i = 0; i < uv.Length; ++i)
+            uv[i] = Matrix3x3.MultiplyVector2(m, uv[i]);
     }
 
     void ComputeUV(Vector2[] uv)

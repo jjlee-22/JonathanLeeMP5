@@ -3579,8 +3579,9 @@ MonoBehaviour:
   N_Slider: {fileID: 1740245823}
   M_Slider: {fileID: 1022789241}
   Rotation: {fileID: 1338349586}
+  l: {fileID: 1950611697}
   size: 0
-  mTexControl: {fileID: 387690485}
+  formcontrol: {fileID: 387690485}
 --- !u!114 &797607286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7342,8 +7343,9 @@ MonoBehaviour:
   N_Slider: {fileID: 1356675905}
   M_Slider: {fileID: 1423864029}
   Rotation: {fileID: 1338349586}
+  l: {fileID: 1950611697}
   size: 0
-  mTexControl: {fileID: 0}
+  formcontrol: {fileID: 0}
 --- !u!114 &1538507339
 MonoBehaviour:
   m_ObjectHideFlags: 0
