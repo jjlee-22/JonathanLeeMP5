@@ -104,7 +104,7 @@ public class CameraControll : MonoBehaviour
     {
         float dist = dis(transform.localPosition, lookAtPoint.transform.localPosition);
         Vector3 dir = lookAtPoint.transform.localPosition - transform.localPosition;
-        Matrix4x4 r = Matrix4x4.TRS(transform.right * d.x + new Vector3(0, d.y, 0), Quaternion.identity, Vector3.one);
+        Matrix4x4 r = Matrix4x4.TRS(transform.right * d.x * 0.5f + new Vector3(0, d.y, 0) * 0.5f, Quaternion.identity, Vector3.one);
         transform.localPosition = r.MultiplyPoint(transform.localPosition);
         //transform.localPosition += transform.right*d.x + new Vector3(0,d.y,0);
         original_lookAt = transform.localPosition + dist * dir.normalized;
