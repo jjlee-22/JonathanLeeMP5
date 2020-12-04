@@ -8,13 +8,16 @@ public partial class MyMesh : MonoBehaviour
     public Slider N_Slider;
     public Slider M_Slider;
     public Slider Rotation;
+    public Dropdown l;
     public int size;
     int pre_N;
     int pre_M;
+    int pre_D;
+    int pre_l;
     int N;
     int M;
     int D;
-    int pre_D;
+    int L;
     int pre_selection;
     int tri_amount;
     int[] t;
@@ -27,6 +30,7 @@ public partial class MyMesh : MonoBehaviour
         pre_N = (int)N_Slider.GetComponent<Slider>().value;
         pre_M = (int)M_Slider.GetComponent<Slider>().value;
         pre_D = (int)Rotation.GetComponent<Slider>().value;
+        pre_l = (int)l.GetComponent<Dropdown>().value;
 
         initMesh(pre_N, pre_M);
 
@@ -45,13 +49,15 @@ public partial class MyMesh : MonoBehaviour
         N = (int)N_Slider.GetComponent<Slider>().value;
         M = (int)M_Slider.GetComponent<Slider>().value;
         D = (int)Rotation.GetComponent<Slider>().value;
+        L = l.GetComponent<Dropdown>().value;
         // Mesh scale changed, reset everything
-        if (N != pre_N || M != pre_M || D != pre_D)
+        if (N != pre_N || M != pre_M || D != pre_D || L!=pre_l)
         {
             Debug.Log("reset");
             pre_N = N;
             pre_M = M;
             pre_D = D;
+            pre_l = L;
             GetComponent<CTRL>().enable = true;
             GetComponent<PointSelect>().SelectPoint.SetActive(false);
             destroyAllChildren();
