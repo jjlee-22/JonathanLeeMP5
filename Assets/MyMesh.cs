@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public partial class MyMesh : MonoBehaviour {
+public partial class MyMesh : MonoBehaviour
+{
     public Slider N_Slider;
     public Slider M_Slider;
     public Slider Rotation;
@@ -18,24 +19,34 @@ public partial class MyMesh : MonoBehaviour {
     int tri_amount;
     int[] t;
     private Transform mUVTransform;
-	// Use this for initialization
-	void Start () {
+    public XFormControl mTexControl;
+    // Use this for initialization
+    void Start()
+    {
         size = 5;
         pre_N = (int)N_Slider.GetComponent<Slider>().value;
         pre_M = (int)M_Slider.GetComponent<Slider>().value;
         pre_D = (int)Rotation.GetComponent<Slider>().value;
+
         initMesh(pre_N, pre_M);
-        initTexture();
+
+        mUVTransform = new GameObject("Texture").transform;
+
+        if (gameObject.name == "MyMesh")
+        {
+            mTexControl.SetSelectedObject(mUVTransform);
+        }
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         // Quad Mesh
         N = (int)N_Slider.GetComponent<Slider>().value;
         M = (int)M_Slider.GetComponent<Slider>().value;
         D = (int)Rotation.GetComponent<Slider>().value;
         // Mesh scale changed, reset everything
-        if (N != pre_N || M != pre_M || D!=pre_D)
+        if (N != pre_N || M != pre_M || D != pre_D)
         {
             Debug.Log("reset");
             pre_N = N;
@@ -70,17 +81,17 @@ public partial class MyMesh : MonoBehaviour {
         Mesh theMesh = GetComponent<MeshFilter>().mesh;   // get the mesh component
         theMesh.Clear();    // delete whatever is there!!
 
-        Vector3[] v = new Vector3[N*M];   // 2x2 mesh needs 3x3 vertices
-        if (Rotation.GetComponent<Slider>().value == 360&&this.name=="MyCylinder")
+        Vector3[] v = new Vector3[N * M];   // 2x2 mesh needs 3x3 vertices
+        if (Rotation.GetComponent<Slider>().value == 360 && this.name == "MyCylinder")
         {
             tri_amount = (N - 1) * 2 * (M - 1) + (M - 1) * 2;
         }
         else
         {
-            tri_amount = (N - 1) * 2 * (M - 1); 
+            tri_amount = (N - 1) * 2 * (M - 1);
         }
         t = new int[tri_amount * 3]; // Number of triangles: 2x2 mesh and 2x triangles on each mesh-unit
-        Vector3[] n = new Vector3[N*M];   // MUST be the same as number of vertices
+        Vector3[] n = new Vector3[N * M];   // MUST be the same as number of vertices
         Vector2[] uv = new Vector2[N * M];  // UV vectors for the mesh
 
         // Initialize normals
@@ -115,7 +126,7 @@ public partial class MyMesh : MonoBehaviour {
             for (int h = 0; h < M; h++)
             {
                 float yVal = h * delta;
-                for(int i = 0; i<kNum; i++)
+                for (int i = 0; i < kNum; i++)
                 {
                     p.x = KRadius * Mathf.Cos(i * kdTheta);
                     p.y = yVal;
@@ -133,7 +144,7 @@ public partial class MyMesh : MonoBehaviour {
         index = 0;
         while (cur_index < stop)
         {
-            if (counter == N-1)
+            if (counter == N - 1)
             {
                 counter = 0;
                 cur_index++;
@@ -148,21 +159,21 @@ public partial class MyMesh : MonoBehaviour {
             t[index + 3] = cur_index;         // t[3] = 0
             t[index + 4] = cur_index + N + 1; // t[4] = 4
             t[index + 5] = cur_index + 1;     // t[5] = 1
-            index+=6;
+            index += 6;
             cur_index++;
             counter++;
         }
         if (Rotation.GetComponent<Slider>().value == 360 && this.name == "MyCylinder")
         {
             counter = 0;
-            while (counter < M-1)
+            while (counter < M - 1)
             {
-                t[index] = counter*N;
-                t[index + 1] = (counter+1) * N;
+                t[index] = counter * N;
+                t[index + 1] = (counter + 1) * N;
                 t[index + 2] = (counter + 2) * N - 1;
 
-                t[index + 3] = counter*N;
-                t[index + 4] = (counter+1) * N - 1;
+                t[index + 3] = counter * N;
+                t[index + 4] = (counter + 1) * N - 1;
                 t[index + 5] = (counter + 2) * N - 1;
                 counter++;
                 index += 6;
@@ -178,11 +189,11 @@ public partial class MyMesh : MonoBehaviour {
         ComputeUV(uv);
     }
 
-    
+
 
     void destroyAllChildren()
     {
-        foreach(Transform child in transform)
+        foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
@@ -215,6 +226,4 @@ public partial class MyMesh : MonoBehaviour {
             }
         }
     }
-
-    void initTexture() => mUVTransform = new GameObject("Texture").transform;
 }
